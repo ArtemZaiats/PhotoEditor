@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -69,7 +70,13 @@ class EditActivity : ComponentActivity() {
                             TOOL.SATURATION,
                             { currentTool.value = TOOL.SATURATION },
                             R.drawable.ic_saturation
+                        ),
+                        ToolButton(
+                            TOOL.RESET,
+                            { currentTool.value = TOOL.RESET },
+                            R.drawable.ic_reset
                         )
+
                     )
                     Column(modifier = Modifier.fillMaxSize()) {
                         UtilHeader(tools = tools, currentTool = currentTool)
@@ -82,6 +89,7 @@ class EditActivity : ComponentActivity() {
                         when (currentTool.value) {
                             TOOL.BRIGHTNESS -> ToolBrightness(brightness = brightness)
                             TOOL.SATURATION -> ToolSaturation(saturation = saturation)
+                            TOOL.RESET -> toolReset(brightness = brightness, saturation = saturation)
                             else -> {}
                         }
                     }
@@ -174,4 +182,9 @@ fun ToolSaturation(saturation: MutableState<Float>) {
             onValueChange = { saturation.value = it }
         )
     }
+}
+
+fun toolReset(brightness: MutableState<Float>, saturation: MutableState<Float>) {
+    brightness.value = 0f
+    saturation.value = 1f
 }
