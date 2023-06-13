@@ -1,5 +1,6 @@
 package com.example.photoeditor
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -25,7 +26,11 @@ class EditActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val uriString = intent.extras?.getString("imageUri")
+                    var uriString: String? = null
+
+                    uriString = intent.extras?.getString("imageUri")
+                    if (uriString == null)
+                        uriString = intent.extras?.get(Intent.EXTRA_STREAM).toString()
                     val uri = Uri.parse(uriString)
 
                     EditImage(uri = uri)
